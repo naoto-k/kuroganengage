@@ -118,8 +118,6 @@ const TeamContextProvider = ({ children }: { children: ReactNode }) => {
       }}
     >
       {children}
-      <pre>{JSON.stringify(commanders, null, 2)}</pre>
-      <pre>{JSON.stringify(companions, null, 2)}</pre>
     </TeamContext.Provider>
   );
 };

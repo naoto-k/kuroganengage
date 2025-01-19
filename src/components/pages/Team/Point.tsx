@@ -3,8 +3,8 @@ import Warning from "@mui/icons-material/Warning";
 import { Paper, Typography } from "@mui/material";
 
 import { GridContainer } from "~/components/parts/GridContainer";
-import { THE_ORDER_ADDITIONAL_COST_PER_UNIT } from "~/constants/fuctions";
 import { useTeamContext } from "~/contexts/TeamContext";
+import { calculateTeamCompanionCost } from "~/functions/calculateTeamCompanionCost";
 
 const MAX_COST = 500;
 
@@ -13,11 +13,8 @@ export const TeamPoint = () => {
   const totalCost =
     commanders.reduce((total, { cost }) => total + cost, 0) +
     companions.reduce(
-      (total, { cost, equipments }) =>
-        total +
-        cost +
-        (fuction.abbr === "TO" ? THE_ORDER_ADDITIONAL_COST_PER_UNIT : 0) +
-        equipments.reduce((eTotal, e) => eTotal + e.cost, 0),
+      (total, companion) =>
+        total + calculateTeamCompanionCost(companion, fuction),
 
       0
     );

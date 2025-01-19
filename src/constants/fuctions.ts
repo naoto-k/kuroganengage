@@ -19,7 +19,6 @@ export const FUCTIONS: FuctionType[] = [
 ] as const;
 export const FUCTION_ABBRS = FUCTIONS.map((f) => f.abbr);
 export const FUCTION_NAMES = FUCTIONS.map((f) => f.name);
-export const THE_ORDER_ADDITIONAL_COST_PER_UNIT = 20;
 
 type FuctionNameType = (typeof FUCTIONS)[number]["name"];
 type FuctionAbbrType = (typeof FUCTIONS)[number]["abbr"];

@@ -5,8 +5,8 @@ import { useNavigate } from "react-router";
 import { CloseBar } from "~/components/parts/CloseBar";
 import { CompanionSpecCard } from "~/components/parts/CompanionSpecCard";
 import { COMPANION_SPECS, CompanionSpecType } from "~/constants/companions";
-import { THE_ORDER_ADDITIONAL_COST_PER_UNIT } from "~/constants/fuctions";
 import { useTeamContext } from "~/contexts/TeamContext";
+import { calculateTeamCompanionCost } from "~/functions/calculateTeamCompanionCost";
 
 export const Companions = () => {
   const navigate = useNavigate();
@@ -16,8 +16,6 @@ export const Companions = () => {
     addCompanion(companion);
     navigate(-1);
   };
-  const additionalCost =
-    fuction.abbr === "TO" ? THE_ORDER_ADDITIONAL_COST_PER_UNIT : 0;
 
   return (
     <div className="target-2">
@@ -27,7 +25,7 @@ export const Companions = () => {
           <CompanionSpecCard
             key={companion.name}
             companion={companion}
-            cost={companion.cost + additionalCost}
+            cost={calculateTeamCompanionCost(companion, fuction)}
             actionNode={
               <Button variant="outlined" onClick={() => handleAdd(companion)}>
                 <Add />

@@ -8,9 +8,10 @@ import { GridContainer } from "~/components/parts/GridContainer";
 import { SquareButton } from "~/components/parts/SquareButton";
 import { TeamCompanionCard } from "~/components/parts/TeamCompanionCard";
 import { useTeamContext } from "~/contexts/TeamContext";
+import { calculateTeamCompanionCost } from "~/functions/calculateTeamCompanionCost";
 
 export const TeamCompanions = () => {
-  const { companions, removeCompanion } = useTeamContext();
+  const { companions, removeCompanion, fuction } = useTeamContext();
 
   return (
     <div className="target-2">
@@ -18,7 +19,8 @@ export const TeamCompanions = () => {
         title="COMPANIONS"
         to="/companions"
         totalCost={companions.reduce(
-          (acc, companion) => acc + companion.cost,
+          (total, companion) =>
+            total + calculateTeamCompanionCost(companion, fuction),
           0
         )}
       >
