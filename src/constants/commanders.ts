@@ -8,7 +8,11 @@ import Bys from "~/assets/units/TO/bys.png";
 import Otw from "~/assets/units/TO/otw.png";
 import Snnm from "~/assets/units/TO/snnm.png";
 import Tst from "~/assets/units/TO/tst.png";
+import Bcf from "~/assets/units/UC/bcf.png";
+import Btk from "~/assets/units/UC/btk.png";
+import Cmnd from "~/assets/units/UC/cmnd.png";
 import Svg from "~/assets/units/UC/svg.png";
+import Wth from "~/assets/units/UC/wth.png";
 import {
   ALL_EQUIPMENTS,
   EquipmentAbbrType,
@@ -100,6 +104,7 @@ export const COMMANDER_SPECS: {
     {
       name: "Wellcome To Heaven",
       cost: 125,
+      avatar: Wth,
       bAp: 3,
       hp: 6,
       arm: 10,
@@ -109,6 +114,7 @@ export const COMMANDER_SPECS: {
     {
       name: "Commandment",
       cost: 135,
+      avatar: Cmnd,
       bAp: 6,
       hp: 5,
       arm: 10,
@@ -118,6 +124,7 @@ export const COMMANDER_SPECS: {
     {
       name: "Butterfly Kiss",
       cost: 85,
+      avatar: Btk,
       bAp: 5,
       hp: 4,
       arm: 7,
@@ -127,6 +134,7 @@ export const COMMANDER_SPECS: {
     {
       name: "Blazing Crimson Flame",
       cost: 120,
+      avatar: Bcf,
       bAp: 4,
       hp: 5,
       arm: 9,
