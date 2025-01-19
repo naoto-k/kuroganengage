@@ -1,71 +1,56 @@
 import { Delete } from "@mui/icons-material";
 import Settings from "@mui/icons-material/Settings";
-import { Button, Grid2 } from "@mui/material";
-import { useState } from "react";
+import { Typography } from "@mui/material";
 import { Link } from "react-router";
 
-import { TeamDialog } from "~/components/pages/Team/Dialog";
 import { TeamTable } from "~/components/pages/Team/Table";
-import { UnitCard } from "~/components/parts/UnitCard";
-import { COMPANIONS } from "~/constants/conpanions";
-import { UnitType, useTeamContext } from "~/contexts/TeamContext";
+import { GridContainer } from "~/components/parts/GridContainer";
+import { SquareButton } from "~/components/parts/SquareButton";
+import { TeamCompanionCard } from "~/components/parts/TeamCompanionCard";
+import { useTeamContext } from "~/contexts/TeamContext";
 
 export const TeamCompanions = () => {
-  const { companions, addCompanion, removeCompanion } = useTeamContext();
-
-  const [open, setOpen] = useState(false);
-
-  const handleClose = () => setOpen(false);
-  const handleOpen = () => setOpen(true);
-  const handleAdd = (companion: UnitType) => {
-    addCompanion(companion);
-    handleClose();
-  };
+  const { companions, removeCompanion } = useTeamContext();
 
   return (
-    <>
+    <div className="target-2">
       <TeamTable
         title="COMPANIONS"
-        onAdd={handleOpen}
+        to="/companions"
         totalCost={companions.reduce(
           (acc, companion) => acc + companion.cost,
           0
         )}
       >
+        {companions.length == 0 && (
+          <GridContainer sx={{ justifyContent: "center", p: 2 }}>
+            <Typography variant="h3">NO UNIT</Typography>
+          </GridContainer>
+        )}
         {companions.map((companion) => (
-          <UnitCard
-            key={companion.uuid}
-            unit={companion}
+          <TeamCompanionCard
+            key={`${companion.uuid}`}
+            companion={companion}
             actionNode={
-              <Grid2 container>
-                <Button
-                  variant="outlined"
-                  sx={{ p: 1 }}
+              <GridContainer spacing={1}>
+                <SquareButton
                   component={Link}
                   to={`/companions/${companion.uuid}`}
                   viewTransition
                 >
                   <Settings />
-                </Button>
-                <Button
-                  variant="outlined"
+                </SquareButton>
+                <SquareButton
                   color="error"
-                  sx={{ p: 1 }}
                   onClick={() => removeCompanion(companion.uuid)}
                 >
                   <Delete />
-                </Button>
-              </Grid2>
+                </SquareButton>
+              </GridContainer>
             }
           />
         ))}
       </TeamTable>
-      <TeamDialog
-        open={open}
-        units={COMPANIONS}
-        onAdd={handleAdd}
-        onClose={handleClose}
-      />
-    </>
+    </div>
   );
 };

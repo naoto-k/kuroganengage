@@ -1,8 +1,9 @@
 import { CssBaseline, ThemeProvider, createTheme } from "@mui/material";
-import { BrowserRouter } from "react-router";
+import { StrictMode } from "react";
+import { RouterProvider } from "react-router";
 
-import { AppRoutes } from "~/AppRoutes";
 import { ProviderTree } from "~/contexts/ProviderTree";
+import { router } from "~/router";
 
 const theme = createTheme({
   palette: {
@@ -12,13 +13,13 @@ const theme = createTheme({
   },
 });
 const App = () => (
-  <ProviderTree>
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
-      <BrowserRouter>
-        <AppRoutes />
-      </BrowserRouter>
-    </ThemeProvider>
-  </ProviderTree>
+  <StrictMode>
+    <ProviderTree>
+      <ThemeProvider theme={theme}>
+        <CssBaseline />
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </ProviderTree>
+  </StrictMode>
 );
 export { App };

@@ -18,7 +18,7 @@ import { Offset } from "~/components/parts/Offset";
 import { UnitCard } from "~/components/parts/UnitCard";
 import { UnitType } from "~/contexts/TeamContext";
 
-const Transition = forwardRef(
+const SlideUp = forwardRef(
   (
     props: TransitionProps & {
       children: ReactElement;
@@ -28,14 +28,19 @@ const Transition = forwardRef(
     return <Slide direction="up" ref={ref} {...props} />;
   }
 );
-type PropsType = {
+type PropsType<T extends UnitType> = {
   open: boolean;
-  units: UnitType[];
-  onAdd: (unit: UnitType) => void;
+  units: T[];
+  onAdd: (unit: T) => void;
   onClose: () => void;
 };
-export const TeamDialog = ({ open, units, onAdd, onClose }: PropsType) => {
-  const handleAdd = (unit: UnitType) => {
+export const TeamDialog = <T extends UnitType>({
+  open,
+  units,
+  onAdd,
+  onClose,
+}: PropsType<T>) => {
+  const handleAdd = (unit: T) => {
     onAdd(unit);
   };
 
@@ -43,7 +48,7 @@ export const TeamDialog = ({ open, units, onAdd, onClose }: PropsType) => {
     <Dialog
       open={open}
       fullScreen
-      TransitionComponent={Transition}
+      TransitionComponent={SlideUp}
       keepMounted
       onClose={onClose}
     >

@@ -1,18 +1,21 @@
 import { Add } from "@mui/icons-material";
-import { Box, Button, Divider, Grid2, Typography } from "@mui/material";
+import { Box, Divider, Grid2, Typography } from "@mui/material";
 import { ReactNode } from "react";
+import { Link } from "react-router";
+
+import { SquareButton } from "~/components/parts/SquareButton";
 
 type PropsType = {
   title: string;
   children: ReactNode;
-  onAdd?: () => void;
+  to: string;
   disabled?: boolean;
   totalCost?: number;
 };
 export const TeamTable = ({
   title,
   children,
-  onAdd = () => {},
+  to,
   disabled = false,
   totalCost = 0,
 }: PropsType) => {
@@ -32,14 +35,15 @@ export const TeamTable = ({
           <Grid2 container size="grow" justifyContent="flex-end">
             <Typography variant="subtitle2">{totalCost} Points </Typography>
           </Grid2>
-          <Button
+          <SquareButton
             variant="contained"
-            onClick={onAdd}
             disabled={disabled}
-            sx={{ p: 2 }}
+            component={Link}
+            to={to}
+            viewTransition
           >
             <Add />
-          </Button>
+          </SquareButton>
         </Grid2>
       </Box>
       {children}

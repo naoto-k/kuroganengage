@@ -1,20 +1,16 @@
-import {
-  Grid2,
-  List,
-  ListItem,
-  ListItemText,
-  Paper,
-  Typography,
-  styled,
-} from "@mui/material";
+import { Paper, Typography, styled } from "@mui/material";
 import { ReactNode } from "react";
 
+import { GridCell } from "~/components/parts/GridCell";
+import { GridContainer } from "~/components/parts/GridContainer";
 import { UnitAvatar } from "~/components/parts/UnitAvatar";
-import { UnitType } from "~/contexts/TeamContext";
+import { UnitSpecType } from "~/contexts/TeamContext";
 
 type PropsType = {
-  unit: UnitType;
+  unit: UnitSpecType;
+  cost?: number;
   actionNode?: ReactNode;
+  children?: ReactNode;
 };
 const PointArea = styled(Paper)(({ theme }) => ({
   backgroundColor: theme.palette.primary.main,
@@ -22,42 +18,35 @@ const PointArea = styled(Paper)(({ theme }) => ({
   paddingBlock: theme.spacing(1),
   paddingInline: theme.spacing(2),
 }));
-export const UnitCard = ({ unit, actionNode }: PropsType) => {
+export const UnitCard = ({
+  unit,
+  cost = unit.cost,
+  actionNode,
+  children,
+}: PropsType) => {
   return (
-    <Grid2
-      container
+    <GridContainer
       spacing={2}
       sx={{ p: 1, alignItems: "stretch", borderBottom: 1 }}
     >
-      <Grid2>
+      <GridCell>
         <UnitAvatar src={unit.avatar} />
-      </Grid2>
-      <Grid2
-        container
-        size="grow"
-        alignItems="flex-start"
+      </GridCell>
+      <GridContainer size="grow" alignItems="flex-start" direction="column">
+        <Typography>{unit.name}</Typography>
+        {children}
+      </GridContainer>
+      <GridContainer
         direction="column"
-        spacing={0}
-      >
-        <Typography variant="body1">{unit.name}</Typography>
-        <List dense disablePadding>
-          {["hoge", "fuga"].map((text) => (
-            <ListItem key={text}>
-              <ListItemText>・{text}</ListItemText>
-            </ListItem>
-          ))}
-        </List>
-      </Grid2>
-      <Grid2
-        container
-        direction="column"
-        sx={{ justifyContent: "center", alignItems: "flex-end" }}
+        sx={{ justifyContent: "flex-start", alignItems: "flex-end" }}
+        spacing={1}
       >
         {actionNode && actionNode}
         <PointArea variant="outlined">
-          <Typography variant="subtitle2">{unit.cost} Points</Typography>
+          <Typography variant="subtitle2">{cost} Points</Typography>
         </PointArea>
-      </Grid2>
-    </Grid2>
+      </GridContainer>
+    </GridContainer>
   );
 };
+export type { PropsType as UnitCardPropsType };
